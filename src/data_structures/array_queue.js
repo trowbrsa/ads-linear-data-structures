@@ -16,6 +16,7 @@ class ArrayQueue {
     }
 
     const element = this.storage[this.head];
+    this.storage[this.head] = undefined;
     this.head += 1;
     return element;
   }
@@ -31,3 +32,5 @@ class ArrayQueue {
     }
   }
 }
+
+export default ArrayQueue;
