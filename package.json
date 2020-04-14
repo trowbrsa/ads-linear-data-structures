@@ -35,6 +35,5 @@
     "webpack-dev-server": "^3.10.3",
     "worker-plugin": "^4.0.2"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
