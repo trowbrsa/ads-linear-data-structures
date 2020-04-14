@@ -5,7 +5,7 @@ const dataStructures = [
 ]
 
 dataStructures.forEach(ds => {
-  describe(ArrayQueue, () => {
+  describe(ds, () => {
     let queue;
     beforeEach(() => {
       queue = new ds();
@@ -115,6 +115,72 @@ dataStructures.forEach(ds => {
           expect(cb.mock.calls[i][1]).toBe(i);
           expect(cb.mock.calls[i][2]).toBe(queue);
         });
+      });
+    });
+
+    describe('cancel', () => {
+      it('reduces the count by one', () => {
+        const elements = ['various', 'interesting', 'strings'];
+        const tickets = [];
+        elements.forEach(el => tickets.push(queue.enqueue(el)));
+
+        expect(queue.count()).toBe(elements.length);
+
+        tickets.forEach((ticket, i) => {
+          queue.cancel(ticket);
+          expect(queue.count()).toBe(elements.length - i - 1);
+        });
+      });
+
+      it('skips cancelled elements when dequeueing', () => {
+        const elements = ['various', 'cancelled', 'strings'];
+        const tickets = [];
+        elements.forEach(el => tickets.push(queue.enqueue(el)));
+
+        queue.cancel(tickets[1]);
+        expect(queue.count()).toBe(2);
+
+        expect(queue.dequeue()).toBe('various');
+        expect(queue.count()).toBe(1);
+
+        expect(queue.dequeue()).toBe('strings');
+        expect(queue.count()).toBe(0);
+      });
+
+      it('skips cancelled elements during iteration', () => {
+        const elements = ['various', 'cancelled', 'strings'];
+        const tickets = [];
+        elements.forEach(el => tickets.push(queue.enqueue(el)));
+
+        queue.cancel(tickets[1]);
+        const cb = jest.fn();
+        queue.forEach(cb);
+
+        expect(cb.mock.calls.length).toBe(elements.length - 1);
+        expect(cb.mock.calls[0][0]).toBe('various');
+        expect(cb.mock.calls[1][0]).toBe('strings');
+      });
+
+      it('does nothing for an invalid ticket', () => {
+        const elements = ['various', 'interesting', 'strings'];
+        elements.forEach(el => queue.enqueue(el));
+
+        expect(queue.count()).toBe(elements.length);
+        queue.cancel('bogus');
+        expect(queue.count()).toBe(elements.length);
+      });
+
+      it('does nothing when cancelling an element that has already been dequeued', () => {
+        const elements = ['various', 'cancelled', 'strings'];
+        const tickets = [];
+        elements.forEach(el => tickets.push(queue.enqueue(el)));
+
+        queue.dequeue();
+        queue.dequeue();
+
+        expect(queue.count()).toBe(1);
+        queue.cancel(tickets[1]);
+        expect(queue.count()).toBe(1);
       });
     })
   });
