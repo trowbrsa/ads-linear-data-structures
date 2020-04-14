@@ -1,7 +1,7 @@
 {
-  "name": "t9-dictionary",
+  "name": "collections",
   "version": "1.0.0",
-  "description": "T9 Dictionary project demonstrating Tries for Ada's Advanced Data Strucutres course",
+  "description": "code demonstrating various collections for Ada's Advanced Data Strucutres course",
   "main": "index.js",
   "scripts": {
     "test": "jest --watch",
@@ -36,9 +36,5 @@
     "worker-plugin": "^4.0.2"
   },
   "dependencies": {
-    "object-sizeof": "^1.5.3",
-    "pretty-bytes": "^5.3.0",
-    "rxjs": "^6.5.4",
-    "seedrandom": "^3.0.5"
   }
 }
