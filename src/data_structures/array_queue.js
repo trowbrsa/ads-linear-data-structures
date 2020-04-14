@@ -6,8 +6,8 @@ class ArrayQueue {
   }
 
   enqueue(element) {
-    this.tail += 1;
     this.storage[this.tail] = element;
+    this.tail += 1;
   }
 
   dequeue() {
@@ -22,11 +22,11 @@ class ArrayQueue {
   }
 
   count() {
-    return this.storage.length;
+    return this.tail - this.head;
   }
 
   forEach(callback) {
-    for (let i = this.head; i <= this.tail; i += 1) {
+    for (let i = this.head; i < this.tail; i += 1) {
       const index = i - this.head;
       callback(this.storage[i], index, this);
     }
