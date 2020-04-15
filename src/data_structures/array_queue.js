@@ -3,19 +3,29 @@ class ArrayQueue {
     this.storage = [];
     this.head = 0;
     this.tail = 0;
+
+    // Number of cancelled elements between head and tail
     this.cancelCount = 0;
   }
 
   enqueue(element) {
-    this.storage[this.tail] = element;
     const ticket = this.tail;
+    this.storage[this.tail] = element;
     this.tail += 1;
     return ticket;
   }
 
+  cancel(ticket) {
+    if (this.storage[ticket] !== undefined) {
+      this.storage[ticket] = undefined;
+      this.cancelCount += 1;
+    }
+  }
+
   dequeue() {
-    while (this.head < this.tail && this.storage[this.head] === undefined) {
-      // skip cancelled elements at the front of the queue
+    // skip cancelled elements at the front of the queue
+    while (this.head < this.tail &&
+        this.storage[this.head] === undefined) {
       this.head += 1;
       this.cancelCount -= 1;
     }
@@ -28,13 +38,6 @@ class ArrayQueue {
     this.storage[this.head] = undefined;
     this.head += 1;
     return element;
-  }
-
-  cancel(ticket) {
-    if (this.storage[ticket] !== undefined) {
-      this.storage[ticket] = undefined;
-      this.cancelCount += 1;
-    }
   }
 
   count() {
