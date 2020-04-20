@@ -1,7 +1,9 @@
 import ArrayQueue from './array_queue';
+import DLLQueue from './dll_queue';
 
 const dataStructures = [
   ArrayQueue,
+  // DLLQueue,
 ]
 
 dataStructures.forEach(ds => {

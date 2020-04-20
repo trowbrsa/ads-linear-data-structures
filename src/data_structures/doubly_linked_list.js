@@ -1,30 +1,24 @@
-let nodeId = 0;
-
-class DLLNode {
-  constructor({element=undefined, next=this, prev=this, isSentinel=false}) {
-    this.element = element;
-    this.next = next;
-    this.prev = prev;
-    this._active = !isSentinel;
-    this._id = nodeId;
-    nodeId += 1;
-    // console.log(`Inserting node ${this._id} between ${this.prev._id} and ${this.next._id}`);
-  }
-
-  // Not part of the public interface, intended only for use by the DoublyLinkedList class
-  _remove() {
-    if (this._active) {
-      this.prev.next = this.next;
-      this.next.prev = this.prev;
-      this._active = false;
-      return this.element;
+class DoublyLinkedList {
+  Node = class DLLNode {
+    constructor({element=undefined, next=this, prev=this, isSentinel=false}) {
+      this.element = element;
+      this.next = next;
+      this.prev = prev;
+      this._active = !isSentinel;
+    }
+  
+    remove() {
+      if (this._active) {
+        this.prev.next = this.next;
+        this.next.prev = this.prev;
+        this._active = false;
+        return this.element;
+      }
     }
   }
-}
 
-class DoublyLinkedList {
   constructor() {
-    this._sentinel = new DLLNode({isSentinel: true});
+    this._sentinel = new this.Node({isSentinel: true});
   }
 
   _head() {
@@ -36,30 +30,30 @@ class DoublyLinkedList {
   }
 
   insertHead(element) {
-    const node = new DLLNode({element, next: this._head(), prev: this._sentinel});
+    const node = new this.Node({element, next: this._head(), prev: this._sentinel});
     this._head().prev = node;
     this._sentinel.next = node;
     return node;
   }
 
   insertTail(element) {
-    const node = new DLLNode({element, next: this._sentinel, prev: this._tail()});
+    const node = new this.Node({element, next: this._sentinel, prev: this._tail()});
     this._tail().next = node;
     this._sentinel.prev = node;
     return node;
   }
 
   removeHead() {
-    return this._head()._remove();
+    return this._head().remove();
   }
 
   removeTail() {
-    return this._tail()._remove();
+    return this._tail().remove();
   }
 
   remove(node) {
-    if (node._remove) {
-      return node._remove();
+    if (node.remove) {
+      return node.remove();
     }
   }
 
@@ -77,12 +71,6 @@ class DoublyLinkedList {
     let count = 0;
     this.forEach(() => count += 1);
     return count;
-  }
-
-  inspect() {
-    this.forEach((el, i) => {
-      console.log(`${i}: ${el}`);
-    })
   }
 }
 
