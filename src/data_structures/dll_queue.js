@@ -50,14 +50,16 @@ class DLLQueue {
   }
 
   /**
-   * Invoke a callback on each element in the queue, in insertion order
-   * 
-   * @param {forEachCallback} callback Function to invoke
-   * 
    * @callback forEachCallback
    * @param element The element stored at this position
    * @param {number} index The index of this element
    * @param {DLLQueue} queue This queue
+   */
+
+  /**
+   * Invoke a callback on each element in the queue, in insertion order
+   * 
+   * @param {forEachCallback} callback Function to invoke
    */
   forEach(callback) {
 

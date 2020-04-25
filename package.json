@@ -7,7 +7,8 @@
     "test": "jest --watch",
     "build": "webpack",
     "start": "webpack-dev-server",
-    "deploy": "npm run build && gh-pages -d dist"
+    "deploy": "npm run build && gh-pages -d dist",
+    "doc": "node_modules/.bin/jsdoc src/"
   },
   "repository": {
     "type": "git",
@@ -15,10 +16,6 @@
   },
   "author": "Dan Roberts",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/droberts-ada/t9-dictionary/issues"
-  },
-  "homepage": "https://github.com/droberts-ada/t9-dictionary#readme",
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
