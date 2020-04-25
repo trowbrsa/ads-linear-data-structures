@@ -38,5 +38,6 @@ $ npm test
 
 ### Optional
 
+1. Write functions to serialize and deserialize a DLLQueue
 1. Following the interface discussed in class, design and implement a Stack data structure using either an array or your `DoublyLinkedList`
     - Make sure it's well tested! You're welcome to use the queue tests as a starting point.
