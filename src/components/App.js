@@ -19,6 +19,9 @@ class App extends React.Component {
       sequence: 0,
       arrayQueue: new ArrayQueue()
     };
+
+    // TODO: Plan for DLLQueue:
+    // store objects, add cancellation ticket to object after insert
   }
 
   mutableStateChanged() {
@@ -50,15 +53,10 @@ class App extends React.Component {
 
   cancel = () => {
     console.log('canceling selected');
-    if (this.state.arrayQueueSelected) {
+    if (this.state.arrayQueueSelected !== undefined) {
       this.state.arrayQueue.cancel(this.state.arrayQueueSelected);
       this.mutableStateChanged();
     }
-  }
-
-  onInputChange = (event) => {
-    const name = event.target.name;
-    this.setState({ [name]: event.target.value });
   }
 
   selectArrayQueueCell = (index) => {
