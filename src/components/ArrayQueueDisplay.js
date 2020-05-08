@@ -1,6 +1,4 @@
 import React from 'react';
-import sizeof from 'object-sizeof';
-import prettyBytes from 'pretty-bytes';
 
 import ArrayQueueCell from './ArrayQueueCell';
 
@@ -12,7 +10,7 @@ const ArrayQueueDisplay = ({ queue, lastDequeue="none", selected, handleCellClic
         <p className="arrayqueue-metadata--entry head">Head: {queue.head}</p>
         <p className="arrayqueue-metadata--entry tail">Tail: {queue.tail}</p>
         <p className="arrayqueue-metadata--entry">Count: {queue.count()}</p>
-        <p className="arrayqueue-metadata--entry">Size: {queue.storage.length}</p>
+        <p className="arrayqueue-metadata--entry">Size: {queue.storage.length + 1}</p>
         <p className="arrayqueue-metadata--entry">Last dequeue: <span className="last-dequeue">{lastDequeue}</span></p>
       </div>
       <div className="arrayqueue-storage">
