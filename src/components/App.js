@@ -30,7 +30,7 @@ class App extends React.Component {
     });
   }
 
-  enqueueValue = () => {
+  enqueue = () => {
     console.log(`enqueueing ${this.state.enqueueValue}`);
     const record = {
       letter: this.state.enqueueValue,
@@ -44,7 +44,7 @@ class App extends React.Component {
     this.mutableStateChanged();
   }
 
-  dequeueValue = () => {
+  dequeue = () => {
     const aqRecord = this.state.arrayQueue.dequeue();
     console.log(`dequeued ${aqRecord}`);
 
@@ -77,8 +77,8 @@ class App extends React.Component {
         <header className="header">
           <h1>Queues</h1>
           <div className="knobs">
-            <button onClick={this.enqueueValue}>Enqueue</button>
-            <button onClick={this.dequeueValue}>Dequeue</button>
+            <button onClick={this.enqueue}>Enqueue</button>
+            <button onClick={this.dequeue}>Dequeue</button>
             <button onClick={this.cancel}>Cancel</button>
           </div>
         </header>
