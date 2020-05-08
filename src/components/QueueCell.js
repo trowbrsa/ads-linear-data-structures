@@ -1,7 +1,7 @@
 import React from 'react';
 
-const ArrayQueueCell = ({ value, isHead, isTail, isSelected, onClick }) => {
-  let classList = ["arrayqueue-display--cell"];
+const QueueCell = ({ value, isHead, isTail, isSelected, onClick }) => {
+  let classList = ["queue-cell"];
 
   if (isHead) {
     classList.push("head");
@@ -25,9 +25,9 @@ const ArrayQueueCell = ({ value, isHead, isTail, isSelected, onClick }) => {
       className={classList.join(' ')}
       onClick={onClick}
       >
-      <p className="arrayqueue-display--cell-value">{value}</p>
+      <p>{value}</p>
     </div>
   );
 };
 
-export default ArrayQueueCell;
+export default QueueCell;

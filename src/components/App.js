@@ -1,6 +1,10 @@
 import React from 'react';
-import ArrayQueueDisplay from './ArrayQueueDisplay';
+
 import ArrayQueue from '../data_structures/array_queue';
+import DLLQueue from '../data_structures/dll_queue';
+
+import ArrayQueueDisplay from './ArrayQueueDisplay';
+import DLLQueueDisplay from './DLLQueueDisplay';
 
 const LETTERS = [];
 for (let i = 'a'.charCodeAt(0); i <= 'z'.charCodeAt(0); i += 1) {
@@ -17,11 +21,9 @@ class App extends React.Component {
     this.state = {
       enqueueValue: LETTERS[0],
       sequence: 0,
-      arrayQueue: new ArrayQueue()
+      arrayQueue: new ArrayQueue(),
+      dllQueue: new DLLQueue(),
     };
-
-    // TODO: Plan for DLLQueue:
-    // store objects, add cancellation ticket to object after insert
   }
 
   mutableStateChanged() {
@@ -34,8 +36,10 @@ class App extends React.Component {
     console.log(`enqueueing ${this.state.enqueueValue}`);
     const record = {
       letter: this.state.enqueueValue,
+      id: this.state.sequence,
     };
     record.aqTicket = this.state.arrayQueue.enqueue(record);
+    record.dqTicket = this.state.dllQueue.enqueue(record);
 
     this.setState({
       enqueueValue: getNextLetter(record.letter)
@@ -46,9 +50,13 @@ class App extends React.Component {
 
   dequeue = () => {
     const aqRecord = this.state.arrayQueue.dequeue();
+    const dqRecord = this.state.dllQueue.dequeue();
     console.log(`dequeued ${aqRecord}`);
 
-    this.setState({arrayQueueLastDequeued: aqRecord?.letter });
+    this.setState({
+      arrayQueueLastDequeued: aqRecord?.letter,
+      dllQueueLastDequeued: dqRecord?.letter
+    });
 
     this.mutableStateChanged();
   }
@@ -57,11 +65,12 @@ class App extends React.Component {
     console.log('canceling selected');
     if (this.state.selected) {
       this.state.arrayQueue.cancel(this.state.selected.aqTicket);
+      this.state.dllQueue.cancel(this.state.selected.dqTicket);
       this.mutableStateChanged();
     }
   }
 
-  selectArrayQueueCell = (record) => {
+  selectCell = (record) => {
     if (this.state.selected === record) {
       console.log(`Deselecting ${record?.letter}`);
       this.setState({ selected: undefined });
@@ -86,7 +95,13 @@ class App extends React.Component {
           queue={this.state.arrayQueue}
           lastDequeue={this.state.arrayQueueLastDequeued}
           selected={this.state.selected}
-          handleCellClick={this.selectArrayQueueCell}
+          handleCellClick={this.selectCell}
+        />
+        <DLLQueueDisplay
+          queue={this.state.dllQueue}
+          lastDequeue={this.state.dllQueueLastDequeued}
+          selected={this.state.selected}
+          handleCellClick={this.selectCell}
         />
       </main>
     );

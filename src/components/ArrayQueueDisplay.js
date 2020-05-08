@@ -1,22 +1,22 @@
 import React from 'react';
 
-import ArrayQueueCell from './ArrayQueueCell';
+import QueueCell from './QueueCell';
 
 const ArrayQueueDisplay = ({ queue, lastDequeue="none", selected, handleCellClick }) => {
   return (
-    <div className="arrayqueue-display">
-      <h2 className="arrayqueue-title">ArrayQueue</h2>
-      <div className="arrayqueue-metadata">
-        <p className="arrayqueue-metadata--entry head">Head: {queue.head}</p>
-        <p className="arrayqueue-metadata--entry tail">Tail: {queue.tail}</p>
-        <p className="arrayqueue-metadata--entry">Count: {queue.count()}</p>
-        <p className="arrayqueue-metadata--entry">Size: {queue.storage.length + 1}</p>
-        <p className="arrayqueue-metadata--entry">Last dequeue: <span className="last-dequeue">{lastDequeue}</span></p>
+    <div className="arrayqueue queue-display">
+      <h2 className="queue-title">Array Queue</h2>
+      <div className="queue-metadata">
+        <p className="queue-metadata--entry head">Head: {queue.head}</p>
+        <p className="queue-metadata--entry tail">Tail: {queue.tail}</p>
+        <p className="queue-metadata--entry">Count: {queue.count()}</p>
+        <p className="queue-metadata--entry">Size: {queue.storage.length + 1}</p>
+        <p className="queue-metadata--entry">Last dequeue: <span className="last-dequeue">{lastDequeue}</span></p>
       </div>
-      <div className="arrayqueue-storage">
+      <div className="queue-storage">
         {
           queue.storage.map((record, i) => (
-            <ArrayQueueCell
+            <QueueCell
               key={i}
               value={record?.letter}
               isSelected={record && record === selected}
@@ -25,7 +25,7 @@ const ArrayQueueDisplay = ({ queue, lastDequeue="none", selected, handleCellClic
             />
           ))
         }
-        <ArrayQueueCell
+        <QueueCell
           key={queue.tail}
           isTail={true}
           onClick={handleCellClick}

@@ -1,11 +1,11 @@
-.arrayqueue-display {
+.queue-display {
   border-top: 1px solid black;
   border-bottom: 1px solid black;
 
   padding-top: 0;
 }
 
-.arrayqueue-metadata, .arrayqueue-storage {
+.queue-metadata, .queue-storage {
   display: flex;
   flex-direction: row;
   justify-content: start;
@@ -14,17 +14,17 @@
   padding: 0 3rem;
 }
 
-.arrayqueue-storage {
+.queue-storage {
   overflow-y: scroll;
   padding-bottom: 3rem;
 }
 
-.arrayqueue-title {
+.queue-title {
   margin-bottom: 0px;
   padding-left: 3rem;
 }
 
-.arrayqueue-metadata--entry {
+.queue-metadata--entry {
   border: 1px solid black;
   padding: 1rem;
   font-size: 1.3rem;
@@ -37,7 +37,7 @@
   font-family: 'Courier New', Courier, monospace;
 }
 
-.arrayqueue-display--cell {
+.queue-cell {
   display: inline-block;
   min-width: 100px;
   height: 125px;
@@ -50,6 +50,11 @@
 
   font-size: 2rem;
   font-family: 'Courier New', Courier, monospace;
+}
+
+.dll-arrows {
+  height: 50px;
+  width: 30px;
 }
 
 .empty {
@@ -95,3 +100,4 @@
   width: 125px;
   font-size: 1.3rem;
 }
+
