@@ -4,7 +4,7 @@ import prettyBytes from 'pretty-bytes';
 
 import ArrayQueueCell from './ArrayQueueCell';
 
-const ArrayQueueDisplay = ({ queue, lastDequeue="none", selectedIndex, handleCellClick }) => {
+const ArrayQueueDisplay = ({ queue, lastDequeue="none", selected, handleCellClick }) => {
   return (
     <div className="arrayqueue-display">
       <h2 className="arrayqueue-title">ArrayQueue</h2>
@@ -17,13 +17,13 @@ const ArrayQueueDisplay = ({ queue, lastDequeue="none", selectedIndex, handleCel
       </div>
       <div className="arrayqueue-storage">
         {
-          queue.storage.map((value, i) => (
+          queue.storage.map((record, i) => (
             <ArrayQueueCell
               key={i}
-              value={value}
-              isSelected={i === selectedIndex}
+              value={record?.letter}
+              isSelected={record && record === selected}
               isHead={i === queue.head}
-              onClick={() => handleCellClick(i)}
+              onClick={() => handleCellClick(record)}
             />
           ))
         }

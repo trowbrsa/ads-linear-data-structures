@@ -32,36 +32,43 @@ class App extends React.Component {
 
   enqueueValue = () => {
     console.log(`enqueueing ${this.state.enqueueValue}`);
-    const letter = this.state.enqueueValue;
-    this.state.arrayQueue.enqueue(letter);
+    const record = {
+      letter: this.state.enqueueValue,
+    };
+    record.aqTicket = this.state.arrayQueue.enqueue(record);
 
     this.setState({
-      enqueueValue: getNextLetter(letter)
+      enqueueValue: getNextLetter(record.letter)
     });
 
     this.mutableStateChanged();
   }
 
   dequeueValue = () => {
-    const aqValue = this.state.arrayQueue.dequeue();
-    console.log(`dequeued ${aqValue}`);
+    const aqRecord = this.state.arrayQueue.dequeue();
+    console.log(`dequeued ${aqRecord}`);
 
-    this.setState({arrayQueueLastDequeued: aqValue });
+    this.setState({arrayQueueLastDequeued: aqRecord?.letter });
 
     this.mutableStateChanged();
   }
 
   cancel = () => {
     console.log('canceling selected');
-    if (this.state.arrayQueueSelected !== undefined) {
-      this.state.arrayQueue.cancel(this.state.arrayQueueSelected);
+    if (this.state.selected) {
+      this.state.arrayQueue.cancel(this.state.selected.aqTicket);
       this.mutableStateChanged();
     }
   }
 
-  selectArrayQueueCell = (index) => {
-    console.log(`Selecting AQ ${index}`);
-    this.setState({ arrayQueueSelected: index });
+  selectArrayQueueCell = (record) => {
+    if (this.state.selected === record) {
+      console.log(`Deselecting ${record?.letter}`);
+      this.setState({ selected: undefined });
+    } else {
+      console.log(`Selecting ${record?.letter}`);
+      this.setState({ selected: record });
+    }
   }
 
   render() {
@@ -78,7 +85,7 @@ class App extends React.Component {
         <ArrayQueueDisplay
           queue={this.state.arrayQueue}
           lastDequeue={this.state.arrayQueueLastDequeued}
-          selectedIndex={this.state.arrayQueueSelected}
+          selected={this.state.selected}
           handleCellClick={this.selectArrayQueueCell}
         />
       </main>
