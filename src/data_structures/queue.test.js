@@ -3,7 +3,7 @@ import DLLQueue from './dll_queue';
 
 const dataStructures = [
   ArrayQueue,
-  // DLLQueue,
+  DLLQueue,
 ]
 
 dataStructures.forEach(ds => {
