@@ -69,8 +69,6 @@ describe(DoublyLinkedList, () => {
       const elements = ['linked', 'list', 'elements'];
       elements.forEach(el => dll.insertHead(el));
 
-      console.log("this is dll", dll);
-
       elements.reverse().forEach(el => {
         expect(dll.removeHead()).toBe(el);
       });
@@ -248,8 +246,6 @@ describe(DoublyLinkedList, () => {
 
       tickets.forEach((ticket, i) => {
         dll.remove(ticket);
-        // count is one too many! by this time count should be 2
-        // console.log("thsi si elements.length - i - 1", elements.length - i - 1)
         expect(dll.count()).toBe(elements.length - i - 1);
       })
     });
@@ -281,6 +277,7 @@ describe(DoublyLinkedList, () => {
       const tickets = [];
       elements.forEach(el => tickets.push(dll.insertHead(el)));
 
+      let head = dll.Node;
       expect(dll.remove(tickets[1])).toBe('removed');
 
       const cb = jest.fn();
@@ -290,7 +287,7 @@ describe(DoublyLinkedList, () => {
       expect(cb.mock.calls[1][0]).toBe('linked');
     });
 
-    it.only('does nothing for an invalid node', () => {
+    it('does nothing for an invalid node', () => {
       const elements = ['linked', 'list', 'elements'];
       const tickets = [];
       elements.forEach(el => tickets.push(dll.insertHead(el)));

@@ -41,13 +41,6 @@ class DoublyLinkedList {
 
   insertTail(element) {
     const node = new DLLNode({ element, next: this._sentinel, prev: this._tail() });
-    // if you put this._sentinel.prev = node; here it breaks - why?
-    // if you set this._sentinel.prev to node,
-    // THEN this.tail().next,
-    // this tail returns this _sentinel.prev
-    // so it will set
-    // this._tail.next to the value you just
-    // set in this_sentine.prev
     this._tail().next = node;
     this._sentinel.prev = node;
     return node;
@@ -62,25 +55,9 @@ class DoublyLinkedList {
   }
 
   remove(node) {
-    // removing head and tail is special case!
-    // update the reference and deal w/ undefined next or previous
-    let current = this._head();
-
-    // we are removing head
-    if (current === node) {
-
-      this._sentinel.next = this._sentinel;
-      this._sentinel.previous = this._sentinel;
-      return node;
+    if (node.remove) {
+      return node.remove(node);
     }
-
-    while (current !== node) {
-      current = current.next;
-    }
-
-    current.next.prev = current.prev;
-    current.prev.next = current.next;
-    return node.element;
   }
 
   // skip over the ones we've set as undefined
